@@ -1,30 +1,38 @@
-'use strict';
 module.exports = {
-  up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('TodoItems', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('TodoItems', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: false,
       },
       complete: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('TodoItems');
-  }
+        type: Sequelize.DATE,
+      },
+      todoId: {
+        type: Sequelize.INTEGER,
+        onDelete, 'CASCADE',
+        references: {
+          model: 'Todos',
+          key: 'id',
+          as: 'todoId',
+        },
+      },
+    }),
+  down: (queryInterface, Sequelize) =>
+    queryInterface.dropTable('TodoItems'),
 };
