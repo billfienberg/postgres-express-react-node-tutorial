@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Todo = sequelize.define('Todo', {
     title: {
-      DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
